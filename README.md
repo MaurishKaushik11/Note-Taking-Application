@@ -89,3 +89,38 @@ See detailed deployment steps near the end of the file after development is comp
 ---
 
 I will keep this README updated as we implement features.
+
+## Live URLs (to be updated)
+- API: <DEPLOYED_API_URL>
+- Web: <DEPLOYED_WEB_URL>
+
+## Deployment Steps
+
+### Backend (Render)
+1. Create a new Web Service from this repo. Root directory: `server/`.
+2. Build command: `npm install && npm run build`
+3. Start command: `npm start`
+4. Set Environment Variables:
+   - `NODE_VERSION=18`
+   - `PORT=10000` (Render provides the port)
+   - `MONGODB_URI=...`
+   - `JWT_SECRET` (generate a long random string)
+   - `RESEND_API_KEY` (optional)
+   - `EMAIL_FROM` (e.g., `no-reply@yourdomain.com`)
+   - `GOOGLE_CLIENT_ID=...`
+   - `CLIENT_ORIGIN` (your deployed frontend URL, comma-separated if multiple)
+5. Deploy. Note the service URL and update `VITE_API_BASE_URL` on the frontend.
+
+### Frontend (Netlify)
+1. New site from Git → pick this repo, base directory: `client/`.
+2. Build command: `npm run build`
+3. Publish directory: `dist`
+4. Environment Variables:
+   - `VITE_API_BASE_URL` → set to your deployed API URL
+   - `VITE_GOOGLE_CLIENT_ID` → your Google OAuth web client ID
+5. Deploy. Confirm routing works via `netlify.toml` (SPA fallback).
+
+### Google OAuth Setup
+- Authorized JavaScript origins: your deployed frontend origin and `http://localhost:5173` for dev.
+- No redirect URI needed for One Tap/basic flow used here, but add if you later adopt redirect-based flows.
+

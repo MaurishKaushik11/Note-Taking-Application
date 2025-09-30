@@ -10,7 +10,7 @@ const router = Router();
 
 const emailSchema = z.object({
   email: z.string().email(),
-  name: z.string().min(1).optional(),
+  name: z.string().min(1, "name_required"),
 });
 
 router.post("/request-otp", async (req, res) => {
@@ -30,7 +30,7 @@ router.post("/request-otp", async (req, res) => {
 const verifySchema = z.object({
   email: z.string().email(),
   code: z.string().min(4),
-  name: z.string().min(1).optional(),
+  name: z.string().min(1, "name_required"),
 });
 
 router.post("/verify-otp", async (req, res) => {
@@ -47,7 +47,7 @@ router.post("/verify-otp", async (req, res) => {
       { new: true, upsert: true }
     );
 
-    const token = signToken({ sub: String(user._id), email: user.email, name: user.name });
+    const token = signToken({ sub: String(user._id), email: user.email, name: user.name || undefined });
     return res.json({ token, user });
   } catch (err) {
     console.error("/verify-otp error", err);
@@ -80,7 +80,7 @@ router.post("/google", async (req, res) => {
       { new: true, upsert: true }
     );
 
-    const token = signToken({ sub: String(user._id), email: user.email, name: user.name });
+    const token = signToken({ sub: String(user._id), email: user.email, name: user.name || undefined });
     return res.json({ token, user });
   } catch (err) {
     console.error("/google error", err);

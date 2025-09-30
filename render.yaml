@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: note-taking-api
+    env: node
+    plan: free
+    rootDir: server
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm start"
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        value: no-reply@example.com
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: CLIENT_ORIGIN
+        sync: false
