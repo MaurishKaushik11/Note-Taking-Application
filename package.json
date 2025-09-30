@@ -1,0 +1,13 @@
+{
+  "name": "note-taking-app",
+  "private": true,
+  "workspaces": ["client", "server"],
+  "scripts": {
+    "dev:server": "npm --workspace server run dev",
+    "build:server": "npm --workspace server run build",
+    "start:server": "npm --workspace server start",
+    "dev:client": "npm --workspace client run dev",
+    "build:client": "npm --workspace client run build",
+    "preview:client": "npm --workspace client run preview"
+  }
+}
