@@ -13,8 +13,9 @@ if (!JWT_SECRET) {
   console.warn("JWT_SECRET is not set; tokens will fail to sign/verify.");
 }
 
-export function signToken(payload: JwtPayload, expiresIn: string | number = "7d") {
-  const options: SignOptions = { expiresIn };
+export function signToken(payload: JwtPayload, expiresIn: number | string = "7d") {
+  // jsonwebtoken v9 typings for `expiresIn` are stricter (StringValue/number). Cast to satisfy types.
+  const options: SignOptions = { expiresIn: expiresIn as any };
   return jwt.sign(payload as object, JWT_SECRET, options);
 }
 
