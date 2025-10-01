@@ -13,6 +13,11 @@ app.use(cors({
 app.use(express.json());
 app.use(morgan("dev"));
 
+// Friendly root for health/info
+app.get("/", (_req, res) => {
+  res.json({ ok: true, service: "notes-api" });
+});
+
 app.get("/health", (_req, res) => {
   res.json({ ok: true, uptime: process.uptime() });
 });
