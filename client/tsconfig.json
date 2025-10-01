@@ -8,6 +8,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "moduleResolution": "Bundler",
+    "types": ["vite/client"],
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
